@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import products from './data/products'
+import ProductCart from './components/ProductCart';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+const Home=()=>{
+  return(
+    <div style={{display:"flex", flexWrap:"wrap"}}>
+      {products.map(product=>(
+         <ProductCart key={product.id} product={product}/>
+      ))}
+    </div>
+  );
+};
+
+const Cart = () =>{
+  return(
+    <div>
+      <h2>Your cart is empty</h2>
+    </div>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Router>
+    <Navbar/>
+    <div style={{padding:"2rem"}}>
+      <Routes>
+        <Route path = "/" element={<Home/>}/>
+        <Route path="/cart" element={<Cart/>}/>
+      </Routes>
+    </div>  
+   </Router>
   );
-}
+};
 
 export default App;
